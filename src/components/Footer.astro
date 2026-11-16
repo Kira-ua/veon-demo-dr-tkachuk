@@ -1,0 +1,39 @@
+---
+import Logo from "./Logo.astro";
+import FutureLink from "./FutureLink.astro";
+import { nav, phone, ward, email, hospital, addressLine, hours } from "../data/site";
+const future = ["Стаціонарна допомога", "Амбулаторна допомога", "Біопсія та малоінвазивні втручання", "Ціни та умови прийому", "Відгуки пацієнтів", "Політика конфіденційності"];
+---
+<footer class="site-footer on-petrol">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <Logo tone="petrol" />
+      <p>{hospital}, хірургічне відділення<br />{addressLine}</p>
+      <p class="site-footer__muted">Хірургічне відділення: {hours}</p>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Зв’язок</h2>
+      <ul class="site-footer__list">
+        <li><span class="site-footer__muted">{phone.label}</span><br /><a href={`tel:${phone.tel}`}>{phone.text}</a></li>
+        <li><span class="site-footer__muted">{ward.label}</span><br /><a href={`tel:${ward.tel}`}>{ward.text}</a></li>
+        <li><span class="site-footer__muted">E-mail</span><br /><a href={`mailto:${email}`}>{email}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="site-footer__h">На сторінці</h2>
+      <ul class="site-footer__list">
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Розділи</h2>
+      <ul class="site-footer__list">
+        {future.map((f) => <li><FutureLink note="Розділ у розробці">{f}</FutureLink></li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <p>Інформація на сайті не замінює консультацію лікаря.</p>
+    <p>© 2026 Хірург Ткачук Олег</p>
+  </div>
+</footer>

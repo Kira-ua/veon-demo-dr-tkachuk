@@ -1,0 +1,9 @@
+---
+// Wordmark in the spirit of the client logo (C-009): square with "Dr" + serif "Tkachuk". Live text, no raster.
+interface Props { tone?: "light" | "petrol"; }
+const { tone = "light" } = Astro.props;
+---
+<a class:list={["logo", `logo--${tone}`]} href="#top" aria-label="Ткачук — на початок сторінки">
+  <span class="logo__mark" aria-hidden="true">Dr</span>
+  <span class="logo__name" aria-hidden="true">Tkachuk</span>
+</a>

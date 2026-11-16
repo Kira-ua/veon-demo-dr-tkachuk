@@ -1,0 +1,59 @@
+/* Hallmark · shape: midline-stations · genre: editorial · theme: custom · job: book (call) · idea: "Пряма лінія: від номера хірурга вниз по тілу до того ж номера" · vibe: "спокійно, точно, по-людськи, без лікарняної блакиті" · paper: #F3F5F4 · accent: #14BFB0 on #12292B / #0B6E66 on paper · display: Piazzolla · body: Golos Text · hero: петрольний квадрат логотипа з H1 і номером, портрет на межі квадрата · nav: світла шапка з якорями і кнопкою-телефоном, мобільна липка панель · footer: петрольний, адреса, телефони, застереження · imagery: client photos · signature: бірюзова лінія від номера до номера зі станціями органів · axes: light/roman-serif/chromatic-teal · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: P, портрет-вирізка має обмежену роздільність (646 px) — показаний не більше 1x–1.3x, без розтягування */
+/* Client design tokens from design/concept.md (8.7 palette, 8.8 type, 8.9 grid). The only token system of the demo. */
+:root {
+  /* palette (concept 8.7) */
+  --color-bg: #F3F5F4;
+  --color-surface: #FFFFFF;
+  --color-text: #182022;
+  --color-text-muted: #4A5658;
+  --color-petrol: #12292B;
+  --color-on-petrol: #EAF2F1;
+  --color-on-petrol-muted: #A9BFBD;
+  --color-teal: #14BFB0;
+  --color-teal-deep: #0B6E66;
+  --color-accent: #0B6E66;
+  /* derived states of the same hues */
+  --color-teal-deep-hover: #08524C;
+  --color-teal-hover: #4ED3C7;
+  --color-rule: #D5DCDB;
+  --color-rule-on-petrol: #2A4547;
+  --color-line-faint: color-mix(in srgb, var(--color-teal-deep) 26%, transparent);
+  --color-line-faint-on-petrol: color-mix(in srgb, var(--color-teal) 30%, transparent);
+  --color-focus: var(--color-teal-deep);
+
+  /* type (concept 8.8) */
+  --font-display: "Piazzolla", "Piazzolla Fallback", Georgia, "Times New Roman", serif;
+  --font-body: "Golos Text", "Golos Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --fs-small: 0.9375rem;
+  --fs-body: 1.125rem;
+  --fs-lead: clamp(1.1875rem, 0.4vw + 1.05rem, 1.375rem);
+  --fs-h3: clamp(1.5rem, 1vw + 1.25rem, 1.875rem);
+  --fs-h2: clamp(2.125rem, 1.6vw + 1.7rem, 2.75rem);
+  --fs-display: clamp(2.375rem, 3.2vw + 1.4rem, 4.5rem);
+  --fs-number: clamp(1.5rem, 7.4vw, 2.75rem);
+
+  /* shape + spacing (concept 8.9, base 8) */
+  --radius: 2px;
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2.5rem;
+  --s-5: 4rem;
+  --s-6: 6.5rem;
+  --gutter: 1.5rem;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --container: 1240px;
+  --space: var(--pad);
+  --header-h: 4.5rem;
+  --bar-h: 4rem;
+  --line-w: 2px;
+
+  /* motion (concept 8.11) */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 450ms;
+  --dur-fast: 180ms;
+}
+@media (max-width: 63.99rem) {
+  :root { --dur: 300ms; --header-h: 4rem; }
+}

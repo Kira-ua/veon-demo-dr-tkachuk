@@ -1,0 +1,181 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CallBar from "../components/CallBar.astro";
+import CallButton from "../components/CallButton.astro";
+import FutureLink from "../components/FutureLink.astro";
+import portrait from "../assets/photos/doctor-portrait.png";
+import deskPhoto from "../assets/photos/doctor-desk.jpg";
+import uzdPhoto from "../assets/photos/doctor-uzd.jpg";
+import { phone, ward, email, hours, addressLine, hospital, mapUrl, stations, biopsy, miniInvasive, timeline } from "../data/site";
+
+const title = "Хірург Ткачук Олег — онкохірург у Луцьку, ВОКЛ";
+const description = "Лікар-хірург вищої категорії, онкохірург Волинської обласної клінічної лікарні. Щитоподібна залоза, шлунок, печінка, грижі, біопсія під УЗД. +38 (067) 784 72 30";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Physician",
+  name: "Олег Ткачук",
+  alternateName: "Ткачук Олег Анатолійович",
+  description,
+  medicalSpecialty: ["Surgical", "Oncologic"],
+  telephone: phone.tel,
+  email,
+  address: { "@type": "PostalAddress", streetAddress: "пр. Президента Грушевського, 21", postalCode: "43005", addressLocality: "Луцьк", addressCountry: "UA" },
+  worksFor: { "@type": "Hospital", name: hospital },
+  availableLanguage: "uk",
+};
+---
+<Base lang="uk" title={title} description={description} bodyRec="W-R015,W-R016,W-R018,W-R020" mainRec="W-R008,W-R009,W-R010,W-R017,MA-R003">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <Header slot="header" />
+
+  <Fragment>
+    <!-- 1. hero: who, what, where, how to call -->
+    <Section id="hero" class="hero on-petrol-field" rec="W-R001,W-R007">
+      <div class="hero__inner">
+        <div class="hero__text">
+          <h1>Олег Ткачук — хірург вищої категорії, онкохірург у Луцьку</h1>
+          <p class="hero__lead">Оперую на щитоподібній залозі, шлунку, печінці, кишківнику та грижах черевної стінки. Амбулаторні втручання і біопсії під контролем УЗД.</p>
+        </div>
+        <div class="hero__call">
+          <p class="hero__label">{phone.label}</p>
+          <a class="hero__number" href={`tel:${phone.tel}`}>{phone.text}</a>
+          <CallButton tone="petrol" size="lg" label="Подзвонити лікарю" />
+        </div>
+        <div class="hero__where">
+          <p class="hero__where-title">Де приймає</p>
+          <p>Хірургічне відділення ВОКЛ,<br />пр. Президента Грушевського, 21, Луцьк</p>
+          <p class="hero__hours">{hours}</p>
+          <ul class="hero__facts"><li>Практикує з 2001 року</li><li>Хірург вищої категорії, онкохірург</li><li>Волинська обласна клінічна лікарня</li></ul>
+          <a class="link" href="#visit">Як потрапити на прийом</a>
+        </div>
+        <div class="hero__portrait" data-rec="W-R011">
+          <Picture src={portrait} formats={["avif", "webp"]} fallbackFormat="png" widths={[323, 420, 646]} sizes="(min-width: 64rem) 420px, 62vw" alt="Олег Ткачук, лікар-хірург" loading="eager" fetchpriority="high" decoding="async" />
+        </div>
+        <div class="hero__tail" aria-hidden="true"></div>
+      </div>
+    </Section>
+
+    <!-- 2. atlas: what is treated, organ by organ along the line -->
+    <Section id="atlas" class="atlas">
+      <div class="container axis atlas__inner">
+        <nav class="atlas__index" aria-label="Органи">
+          <ol>
+            {stations.map((s) => <li><a href={`#${s.id}`} data-station-link>{s.short}</a></li>)}
+          </ol>
+        </nav>
+        <header class="atlas__head" data-reveal>
+          <h2>Що лікую</h2>
+          <p class="lead">Від шиї до шкіри — по порядку. Знайдіть свій діагноз і запитайте лікаря напряму.</p>
+        </header>
+        <ol class="atlas__list">
+          {stations.map((s) => (
+            <li class="station" id={s.id} data-station data-reveal>
+              <h3>{s.title}</h3>
+              <p class="station__where"><span>Де лікують:</span> {s.where}</p>
+              <ul class="station__items">
+                {s.items.map((i) => <li>{i}</li>)}
+              </ul>
+              <FutureLink class="station__more" note="Розділ у розробці">Докладніше про лікування</FutureLink>
+            </li>
+          ))}
+        </ol>
+        <p class="atlas__ask" data-reveal>
+          <span>Не знайшли свій діагноз? Запитайте лікаря:</span>
+          <a href={`tel:${phone.tel}`}>{phone.text}</a>
+        </p>
+      </div>
+    </Section>
+
+    <!-- 3. uzd: biopsy and mini-invasive procedures under ultrasound -->
+    <Section id="uzd" class="uzd on-petrol on-petrol-field">
+      <div class="container axis axis--petrol uzd__inner">
+        <div class="uzd__body">
+          <h2>Без розрізу: під контролем УЗД</h2>
+          <div class="uzd__lists">
+            <div>
+              <h3>Біопсія</h3>
+              <ul>{biopsy.map((b) => <li>{b}</li>)}</ul>
+            </div>
+            <div>
+              <h3>Малоінвазивні втручання</h3>
+              <ul>{miniInvasive.map((b) => <li>{b}</li>)}</ul>
+            </div>
+          </div>
+          <p class="uzd__ask">Щитоподібна залоза, печінка, підшлункова, лімфовузли — запитайте лікаря, чи підходить вам таке обстеження.</p>
+        </div>
+        <figure class="uzd__photo">
+          <Picture src={uzdPhoto} formats={["avif", "webp"]} widths={[288, 480, 576]} sizes="(min-width: 64rem) 480px, 100vw" alt="Лікар Олег Ткачук у кабінеті ультразвукової діагностики" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </Section>
+
+    <!-- 4. doctor: the path by years -->
+    <Section id="doctor" class="doctor" rec="W-R005">
+      <div class="container axis doctor__inner">
+        <header class="doctor__head" data-reveal>
+          <h2>Лікар</h2>
+          <p class="lead">Олег Анатолійович Ткачук. Хірург вищої категорії, онкохірург Волинської обласної клінічної лікарні.</p>
+        </header>
+        <ol class="timeline">
+          {timeline.map((t) => (
+            <li class="timeline__item" data-reveal>
+              <span class="timeline__year">{t.year}</span>
+              <p>{t.text}</p>
+            </li>
+          ))}
+        </ol>
+        <figure class="doctor__photo" data-reveal>
+          <Picture src={deskPhoto} formats={["avif", "webp"]} widths={[250, 360, 500]} sizes="(min-width: 64rem) 360px, 100vw" alt="Олег Ткачук за робочим столом" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </Section>
+
+    <!-- 5. visit: where, when, whom to call -->
+    <Section id="visit" class="visit">
+      <div class="container axis visit__inner">
+        <h2 class="visit__title">Як потрапити на прийом</h2>
+        <dl class="visit__rows">
+          <div class="visit__row">
+            <dt>Адреса</dt>
+            <dd>
+              {hospital}, хірургічне відділення<br />{addressLine}
+              <a class="link" href={mapUrl} target="_blank" rel="noopener noreferrer">Маршрут на карті<span class="visually-hidden"> (відкриється в новій вкладці)</span></a>
+            </dd>
+          </div>
+          <div class="visit__row">
+            <dt>Години</dt>
+            <dd>Хірургічне відділення: {hours}</dd>
+          </div>
+          <div class="visit__row">
+            <dt>{phone.label}</dt>
+            <dd><a class="visit__tel" href={`tel:${phone.tel}`}>{phone.text}</a></dd>
+          </div>
+          <div class="visit__row">
+            <dt>{ward.label}</dt>
+            <dd><a class="visit__tel" href={`tel:${ward.tel}`}>{ward.text}</a></dd>
+          </div>
+        </dl>
+        <p class="visit__note">Умови прийому та що взяти з собою — уточніть у лікаря телефоном.</p>
+        <p class="visit__hospital">{hospital} — найбільший за потужністю лікувальний заклад на Волині: 715 ліжок, щороку близько 25 000 пацієнтів на стаціонарному лікуванні та понад 13 000 операцій.</p>
+      </div>
+    </Section>
+
+    <!-- 6. contacts: the same number again, the line ends -->
+    <Section id="contacts" class="contacts on-petrol on-petrol-field">
+      <div class="container axis axis--petrol axis--end contacts__inner">
+        <h2>Пряма лінія до лікаря</h2>
+        <a class="contacts__number" href={`tel:${phone.tel}`}>{phone.text}</a>
+      </div>
+      <div class="container contacts__more">
+        <p>Пишіть також на e-mail: <a class="link" href={`mailto:${email}`}>{email}</a></p>
+      </div>
+    </Section>
+  </Fragment>
+
+  <Footer slot="footer" />
+  <CallBar slot="footer" />
+</Base>

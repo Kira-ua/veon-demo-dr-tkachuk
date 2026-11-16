@@ -1,0 +1,31 @@
+---
+import Logo from "./Logo.astro";
+import CallButton from "./CallButton.astro";
+import { nav, phone, hours } from "../data/site";
+---
+<header class="site-header" data-rec="W-R002,W-R006,W-R007,S-R011,S-R012">
+  <div class="site-header__inner">
+    <Logo />
+    <nav class="site-nav" aria-label="Розділи сторінки">
+      <ul>
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <CallButton class="site-header__call" showNumber label="Подзвонити лікарю" />
+    <details class="menu">
+      <summary class="menu__toggle"><span class="menu__open">Меню</span><span class="menu__close">Закрити</span></summary>
+      <div class="menu__panel">
+        <nav aria-label="Розділи сторінки (меню)">
+          <ul>
+            {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          </ul>
+        </nav>
+        <div class="menu__call">
+          <p class="menu__label">{phone.label}</p>
+          <CallButton tone="petrol" size="lg" showNumber label="Подзвонити лікарю" />
+          <p class="menu__hours">Хірургічне відділення: {hours}</p>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,40 @@
+---
+import "../styles/tokens.css";
+import "../styles/fonts.css";
+import "../styles/global.css";
+import "../styles/site.css";
+import piazzollaCyr from "../assets/fonts/piazzolla-cyrillic-wght-normal.woff2?url";
+import golosCyr from "../assets/fonts/golos-text-cyrillic-wght-normal.woff2?url";
+
+interface Props { lang: string; title: string; description: string; canonical?: string; bodyRec?: string; mainRec?: string; }
+const { lang, title, description, canonical, bodyRec, mainRec } = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add("js")</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#12292B" />
+    <meta name="robots" content="noindex" />
+    <link rel="preload" href={piazzollaCyr} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={golosCyr} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2312292B%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%2314BFB0%27 font-family=%27Arial%27%3EDr%3C/text%3E%3C/svg%3E" />
+    <slot name="head" />
+  </head>
+  <body id="top" data-rec={bodyRec}>
+    <a class="skip-link" href="#main">{lang.startsWith("uk") ? "До змісту" : lang.startsWith("ru") ? "К содержанию" : "Skip to content"}</a>
+    <slot name="header" />
+    <main id="main" data-rec={mainRec}><slot /></main>
+    <slot name="footer" />
+    <script src="../scripts/reveal.ts"></script>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>
